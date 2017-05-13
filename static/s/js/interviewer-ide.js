@@ -10,3 +10,7 @@ socket.on("modify", function(data) {
         editor.addSelectionMarker(i);
     }
 });
+
+socket.on("lang", function(data) {
+    editor.getSession.setMode("ace/mode/" + data);
+});

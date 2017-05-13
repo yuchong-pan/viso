@@ -8,3 +8,8 @@ editor.on("change", function() {
         });
     }, 50);
 });
+
+function setLang(lang) {
+    editor.getSession().setMode("ace/mode/" + lang);
+    Vue.http.get("http://viso.hackinit.io/api/ide/lang?l=" + lang);
+}
