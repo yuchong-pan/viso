@@ -82,6 +82,11 @@
         <video id="remote_video" autoplay></video>
         <video id="local_video" autoplay muted></video>
     </div>
+    <script>
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/monokai");
+        editor.getSession().setMode("ace/mode/javascript");
+    </script>
     <script src="https://cdn.jsdelivr.net/vue/1.0.24/vue.min.js"></script>
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
