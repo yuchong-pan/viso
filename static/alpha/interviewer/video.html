@@ -21,7 +21,7 @@
                     仅再需一步即可与 {{ autoCall }} 连线
                 </p>
                 <p>
-                    <input type="text" v-model="id" placeholder="Please input your Leap Serial Number" autofocus/>
+                    <input type="text" v-model="id" placeholder="输入硬件序列号" autofocus/>
                     <button type="submit" v-on:click="login" v-show="state !== 'loggingin'">登录</button>
                     <button disabled v-show="state === 'loggingin'">正在登录...</button>
                 </p>
