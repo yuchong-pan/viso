@@ -1,13 +1,14 @@
-var APP_ID = 'z5YOfzdyAyjMIrJzsKfCp4Ta-gzGzoHsz';
-var APP_KEY = 'KvNAa2fpyBMXHyyl83eUqlmM';
+// 请将 AppId 改为你自己的 AppId，否则无法本地测试
+var appId = 'z5YOfzdyAyjMIrJzsKfCp4Ta-gzGzoHsz';
+var appKey = 'KvNAa2fpyBMXHyyl83eUqlmM';
 
-AV.init(APP_ID, APP_KEY);
+AV.initialize(appId, appKey);
 
 // 请换成你自己的一个房间的 conversation id（这是服务器端生成的）
-var roomId = '59171939a46814d9c7a30fde';
+var roomId = '591745aea46814d9c7a310b8';
 
 // 每个客户端自定义的 id
-var clientId = vm.client.id;
+var clientId = 'interviewee';
 
 var realtime;
 var client;
@@ -38,154 +39,155 @@ bindEvent(sendBtn, 'click', sendMsg);
 bindEvent(sendBtnAsFile, 'click', sendMsgAsFile);
 
 bindEvent(document.body, 'keydown', function(e) {
-    if (e.keyCode === 13) {
-        if (firstFlag) {
-            main();
-        } else {
-            sendMsg();
-        }
+  if (e.keyCode === 13) {
+    if (firstFlag) {
+      main();
+    } else {
+      sendMsg();
     }
+  }
 });
 
 function main() {
-    showLog('正在连接，请等待');
-    var val = inputName.value;
-    if (val) {
-        clientId = val;
-    }
-    if (!firstFlag) {
-        client.close();
-    }
+  showLog('正在连接，请等待');
+  if (!firstFlag) {
+    client.close();
+  }
 
-    // 创建实时通信实例
-    realtime = new AV.Realtime({
-        appId: appId,
-        appKey: appKey,
-        plugins: AV.TypedMessagesPlugin,
+  // 创建实时通信实例
+  realtime = new AV.Realtime({
+    appId: appId,
+    appKey: appKey,
+    plugins: AV.TypedMessagesPlugin,
+  });
+  // 创建聊天客户端
+  realtime.createIMClient(clientId)
+  .then(function(c) {
+    showLog('连接成功');
+    firstFlag = false;
+    client = c;
+    client.on('disconnect', function() {
+      showLog('[disconnect] 服务器连接已断开');
     });
-    // 创建聊天客户端
-    realtime.createIMClient(clientId)
-    .then(function(c) {
-        showLog('连接成功');
-        firstFlag = false;
-        client = c;
-        client.on('disconnect', function() {
-            showLog('[disconnect] 服务器连接已断开');
-        });
-        client.on('offline', function() {
-            showLog('[offline] 离线（网络连接已断开）');
-        });
-        client.on('online', function() {
-            showLog('[online] 已恢复在线');
-        });
-        client.on('schedule', function(attempt, time) {
-            showLog('[schedule] ' + time / 1000 + 's 后进行第 ' + (attempt + 1) + ' 次重连');
-        });
-        client.on('retry', function(attempt) {
-            showLog('[retry] 正在进行第 ' + (attempt + 1) + ' 次重连');
-        });
-        client.on('reconnect', function() {
-            showLog('[reconnect] 重连成功');
-        });
-        client.on('reconnecterror', function() {
-            showLog('[reconnecterror] 重连失败');
-        });
-        // 获取对话
-        return c.getConversation(roomId);
-    })
-    .then(function(conversation) {
-        if (conversation) {
-            return conversation;
-        } else {
-            // 如果服务器端不存在这个 conversation
-            showLog('不存在这个 conversation，创建一个。');
-            return client.createConversation({
-                members: ['LP01632947305'],
-                name: 'Interview Chat',
-                // 创建暂态的聊天室（暂态聊天室支持无限人员聊天，但是不支持存储历史）
-                transient: true,
-                // 默认的数据，可以放 conversation 属性等
-            }).then(function(conversation) {
-                showLog('创建新 Room 成功，id 是：', roomId);
-                roomId = conversation.id;
-                return conversation;
-
-            });
+    client.on('offline', function() {
+      showLog('[offline] 离线（网络连接已断开）');
+    });
+    client.on('online', function() {
+      showLog('[online] 已恢复在线');
+    });
+    client.on('schedule', function(attempt, time) {
+      showLog('[schedule] ' + time / 1000 + 's 后进行第 ' + (attempt + 1) + ' 次重连');
+    });
+    client.on('retry', function(attempt) {
+      showLog('[retry] 正在进行第 ' + (attempt + 1) + ' 次重连');
+    });
+    client.on('reconnect', function() {
+      showLog('[reconnect] 重连成功');
+    });
+    client.on('reconnecterror', function() {
+      showLog('[reconnecterror] 重连失败');
+    });
+    // 获取对话
+    return c.getConversation(roomId);
+  })
+  .then(function(conversation) {
+    if (conversation) {
+      return conversation;
+    } else {
+      // 如果服务器端不存在这个 conversation
+      showLog('不存在这个 conversation，创建一个。');
+      return client.createConversation({
+        name: 'LeanCloud-Conversation',
+        members: [
+          // 默认包含当前用户
+          'Wallace'
+        ],
+        // 创建暂态的聊天室（暂态聊天室支持无限人员聊天，但是不支持存储历史）
+        // transient: true,
+        // 默认的数据，可以放 conversation 属性等
+        attributes: {
+          test: 'demo2'
         }
-    })
-    .then(function(conversation) {
-        showLog('当前 Conversation 的成员列表：', conversation.members);
-        if (conversation.members.length > 490) {
-            return conversation.remove(conversation.members[30]).then(function(conversation) {
-                showLog('人数过多，踢掉： ', conversation.members[30]);
-                return conversation;
-            });
-        }
+      }).then(function(conversation) {
+        showLog('创建新 Room 成功，id 是：', roomId);
+        roomId = conversation.id;
         return conversation;
-    })
-    .then(function(conversation) {
-        return conversation.join();
-    })
-    .then(function(conversation) {
-        // 获取聊天历史
-        room = conversation;
-        messageIterator = conversation.createMessagesIterator();
-        getLog(function() {
-            printWall.scrollTop = printWall.scrollHeight;
-            showLog('已经加入，可以开始聊天。');
-        });
-        // 房间接受消息
-        conversation.on('message', function(message) {
-            if (!msgTime) {
-                // 存储下最早的一个消息时间戳
-                msgTime = message.timestamp;
-            }
-            showMsg(message);
-        });
-    })
-    .catch(function(err) {
-        console.error(err);
-    })
+      });
+    }
+  })
+  .then(function(conversation) {
+    showLog('当前 Conversation 的成员列表：', conversation.members);
+    if (conversation.members.length > 490) {
+      return conversation.remove(conversation.members[30]).then(function(conversation) {
+        showLog('人数过多，踢掉： ', conversation.members[30]);
+        return conversation;
+      });
+    }
+    return conversation;
+  })
+  .then(function(conversation) {
+    return conversation.join();
+  })
+  .then(function(conversation) {
+    // 获取聊天历史
+    room = conversation;
+    messageIterator = conversation.createMessagesIterator();
+    getLog(function() {
+      printWall.scrollTop = printWall.scrollHeight;
+      showLog('已经加入，可以开始聊天。');
+    });
+    // 房间接受消息
+    conversation.on('message', function(message) {
+      if (!msgTime) {
+        // 存储下最早的一个消息时间戳
+        msgTime = message.timestamp;
+      }
+      showMsg(message);
+    });
+  })
+  .catch(function(err) {
+    console.error(err);
+  })
 }
 
 function sendMsg() {
 
-    var val = inputSend.value;
+  var val = inputSend.value;
 
-    // 不让发送空字符
-    if (!String(val).replace(/^\s+/, '').replace(/\s+$/, '')) {
-        alert('You cannot send blank messages!');
-    }
+  // 不让发送空字符
+  if (!String(val).replace(/^\s+/, '').replace(/\s+$/, '')) {
+    alert('请输入点文字！');
+  }
 
-    // 向这个房间发送消息，这段代码是兼容多终端格式的，包括 iOS、Android、Window Phone
-    room.send(new AV.TextMessage(val)).then(function(message) {
-        // 发送成功之后的回调
-        inputSend.value = '';
-        showLog('（' + formatTime(message.timestamp) + '）  You: ', encodeHTML(message.text));
-        printWall.scrollTop = printWall.scrollHeight;
-    });
+  // 向这个房间发送消息，这段代码是兼容多终端格式的，包括 iOS、Android、Window Phone
+  room.send(new AV.TextMessage(val)).then(function(message) {
+    // 发送成功之后的回调
+    inputSend.value = '';
+    showLog('（' + formatTime(message.timestamp) + '）  自己： ', encodeHTML(message.text));
+    printWall.scrollTop = printWall.scrollHeight;
+  });
 
 }
 
 // 发送多媒体消息示例
 function sendMsgAsFile() {
 
-    var val = inputSend.value;
+  var val = inputSend.value;
 
-    // 不让发送空字符
-    if (!String(val).replace(/^\s+/, '').replace(/\s+$/, '')) {
-        alert('You cannot send blank messages!');
-    }
-    new AV.File('message.txt', {
-        base64: b64EncodeUnicode(val),
-    }).save().then(function(file) {
-        return room.send(new AV.FileMessage(file));
-    }).then(function(message) {
-        // 发送成功之后的回调
-        inputSend.value = '';
-        showLog('（' + formatTime(message.timestamp) + '）  自己： ', createLink(message.getFile().url()));
-        printWall.scrollTop = printWall.scrollHeight;
-    }).catch(console.warn);
+  // 不让发送空字符
+  if (!String(val).replace(/^\s+/, '').replace(/\s+$/, '')) {
+    alert('请输入点文字！');
+  }
+  new AV.File('message.txt', {
+    base64: b64EncodeUnicode(val),
+  }).save().then(function(file) {
+    return room.send(new AV.FileMessage(file));
+  }).then(function(message) {
+    // 发送成功之后的回调
+    inputSend.value = '';
+    showLog('（' + formatTime(message.timestamp) + '）  自己： ', createLink(message.getFile().url()));
+    printWall.scrollTop = printWall.scrollHeight;
+  }).catch(console.warn);
 
 }
 
@@ -198,75 +200,75 @@ function b64EncodeUnicode(str) {
 
 // 显示接收到的信息
 function showMsg(message, isBefore) {
-    var text = message.text;
-    var from = message.from;
-    if (message.from === clientId) {
-        from = '自己';
+  var text = message.text;
+  var from = message.from;
+  if (message.from === clientId) {
+    from = '自己';
+  }
+  if (message instanceof AV.TextMessage) {
+    if (String(text).replace(/^\s+/, '').replace(/\s+$/, '')) {
+      showLog('（' + formatTime(message.timestamp) + '）  ' + encodeHTML(from) + '： ', encodeHTML(message.text), isBefore);
     }
-    if (message instanceof AV.TextMessage) {
-        if (String(text).replace(/^\s+/, '').replace(/\s+$/, '')) {
-            showLog('（' + formatTime(message.timestamp) + '）  ' + encodeHTML(from) + '： ', encodeHTML(message.text), isBefore);
-        }
-    } else if (message instanceof AV.FileMessage) {
-        showLog('（' + formatTime(message.timestamp) + '）  ' + encodeHTML(from) + '： ', createLink(message.getFile().url()), isBefore);
-    }
+  } else if (message instanceof AV.FileMessage) {
+    showLog('（' + formatTime(message.timestamp) + '）  ' + encodeHTML(from) + '： ', createLink(message.getFile().url()), isBefore);
+  }
 }
 
 // 拉取历史
 bindEvent(printWall, 'scroll', function(e) {
-    if (printWall.scrollTop < 20) {
-        getLog();
-    }
+  if (printWall.scrollTop < 20) {
+    getLog();
+  }
 });
 
 // 获取消息历史
 function getLog(callback) {
-    var height = printWall.scrollHeight;
-    if (logFlag) {
-        return;
-    } else {
-        // 标记正在拉取
-        logFlag = true;
+  var height = printWall.scrollHeight;
+  if (logFlag) {
+    return;
+  } else {
+    // 标记正在拉取
+    logFlag = true;
+  }
+  messageIterator.next().then(function(result) {
+    var data = result.value;
+    logFlag = false;
+    // 存储下最早一条的消息时间戳
+    var l = data.length;
+    if (l) {
+      msgTime = data[0].timestamp;
     }
-    messageIterator.next().then(function(result) {
-        var data = result.value;
-        logFlag = false;
-        // 存储下最早一条的消息时间戳
-        var l = data.length;
-        if (l) {
-            msgTime = data[0].timestamp;
-        }
-        for (var i = l - 1; i >= 0; i--) {
-            showMsg(data[i], true);
-        }
-        if (l) {
-            printWall.scrollTop = printWall.scrollHeight - height;
-        }
-        if (callback) {
-            callback();
-        }
-    }).catch(function(err) {
-        console.error(err);
-    });
+    for (var i = l - 1; i >= 0; i--) {
+      showMsg(data[i], true);
+    }
+    if (l) {
+      printWall.scrollTop = printWall.scrollHeight - height;
+    }
+    if (callback) {
+      callback();
+    }
+  }).catch(function(err) {
+    console.error(err);
+  });
 }
 
 // demo 中输出代码
 function showLog(msg, data, isBefore) {
-    if (data) {
-        // console.log(msg, data);
-        msg = msg + '<span class="strong">' + data + '</span>';
-    }
-    var p = document.createElement('p');
-    p.innerHTML = msg;
-    if (isBefore) {
-        printWall.insertBefore(p, printWall.childNodes[0]);
-    } else {
-        printWall.appendChild(p);
-    }
+  if (data) {
+    // console.log(msg, data);
+    msg = msg + '<span class="strong">' + data + '</span>';
+  }
+  var p = document.createElement('p');
+  p.innerHTML = msg;
+  if (isBefore) {
+    printWall.insertBefore(p, printWall.childNodes[0]);
+  } else {
+    printWall.appendChild(p);
+  }
 }
 
 function encodeHTML(source) {
-    return String(source)
+  return String(source)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
@@ -276,23 +278,23 @@ function encodeHTML(source) {
 }
 
 function formatTime(time) {
-    var date = new Date(time);
-    var month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
-    var currentDate = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
-    var hh = date.getHours() < 10 ? '0' + date.getHours() : date.getHours();
-    var mm = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
-    var ss = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
-    return date.getFullYear() + '-' + month + '-' + currentDate + ' ' + hh + ':' + mm + ':' + ss;
+  var date = new Date(time);
+  var month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
+  var currentDate = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
+  var hh = date.getHours() < 10 ? '0' + date.getHours() : date.getHours();
+  var mm = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
+  var ss = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
+  return date.getFullYear() + '-' + month + '-' + currentDate + ' ' + hh + ':' + mm + ':' + ss;
 }
 
 function createLink(url) {
-    return '<a target="_blank" href="' + encodeHTML(url) + '">' + encodeHTML(url) + '</a>';
+  return '<a target="_blank" href="' + encodeHTML(url) + '">' + encodeHTML(url) + '</a>';
 }
 
 function bindEvent(dom, eventName, fun) {
-    if (window.addEventListener) {
-        dom.addEventListener(eventName, fun);
-    } else {
-        dom.attachEvent('on' + eventName, fun);
-    }
+  if (window.addEventListener) {
+    dom.addEventListener(eventName, fun);
+  } else {
+    dom.attachEvent('on' + eventName, fun);
+  }
 }
