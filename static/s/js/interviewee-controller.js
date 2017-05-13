@@ -25,6 +25,8 @@ if (idParam && idParam.length) {
     autoId = idParam[1];
 }
 
+var clienrId;
+
 var vm = new Vue({
     el: '#app',
     data: {
@@ -58,6 +60,7 @@ var vm = new Vue({
             _this.state = 'loggingin';
             return realtime.createWebRTCClient(this.id).then(function (client) {
                 _this.client = client;
+                clientId = client.id;
                 client.on('call', function (call) {
                     _this.incomingCall = call;
                     call.on('cancel', function () {
@@ -197,7 +200,6 @@ AV.init(APP_ID, APP_KEY);
 var roomId = '59171939a46814d9c7a30fde';
 
 // 每个客户端自定义的 id
-var clientId = vm.client.id;
 
 var realtime;
 var client;
