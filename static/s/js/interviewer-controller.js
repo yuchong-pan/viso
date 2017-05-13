@@ -63,7 +63,7 @@ var vm = new Vue({
             });
 
             socket.on("modify", function(data) {
-                body = JSON.parse(data);
+                var body = JSON.parse(data);
                 editor.setValue(body["code"]);
                 editor.moveCursorToPosition(body["pos"]);
                 editor.clearSelection();
