@@ -11,7 +11,7 @@ def received_alert():
     socketio.emit("alert", "!", namespace=namespace)
     return "received alert from: " + namespace
 
-@app.route("/api/ide/modify")
+@app.route("/api/ide/modify", methods=["POST"])
 def code_modified():
     author = request.form["author"]
     if author == "LP01632947305":
