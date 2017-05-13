@@ -49,7 +49,7 @@ class SampleListener(Leap.Listener):
             timeoutCount = (timeoutCount + 1) % 90
             #print timeoutCount
             if timeoutCount == 0:
-                r = requests.get('http://viso.hackinit.io/api/leap/alert', params = sn)
+                r = requests.get('http://viso.hackinit.io/api/leap/alert', {"id" : sn})
                 print "RIGHT SURE"
         print "Serial Number: %s, Frame id: %d, timestamp: %d, hands: %d, fingers: %d, tools: %d, gestures: %d" % (
               sn, frame.id, frame.timestamp, len(frame.hands), len(frame.fingers), len(frame.tools), len(frame.gestures()))
