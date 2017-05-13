@@ -48,7 +48,7 @@ var roomId = '591745aea46814d9c7a310b8';
 // 每个客户端自定义的 id
 var clientId = 'LP01632947305';
 
-var realtime;
+var _realtime;
 var client;
 var messageIterator;
 
@@ -85,13 +85,13 @@ function main() {
   }
 
   // 创建实时通信实例
-  realtime = new AV.Realtime({
+  _realtime = new AV.Realtime({
     appId: appId,
     appKey: appKey,
     plugins: AV.TypedMessagesPlugin,
   });
   // 创建聊天客户端
-  realtime.createIMClient(clientId)
+  _realtime.createIMClient(clientId)
   .then(function(c) {
     showLog('连接成功');
     firstFlag = false;
