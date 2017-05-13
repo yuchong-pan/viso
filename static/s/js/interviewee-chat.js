@@ -1,7 +1,7 @@
 var APP_ID = 'z5YOfzdyAyjMIrJzsKfCp4Ta-gzGzoHsz';
 var APP_KEY = 'KvNAa2fpyBMXHyyl83eUqlmM';
 
-AV.initialize(APP_ID, APP_KEY);
+AV.init(APP_ID, APP_KEY);
 
 // 请换成你自己的一个房间的 conversation id（这是服务器端生成的）
 var roomId = '59171939a46814d9c7a30fde';
