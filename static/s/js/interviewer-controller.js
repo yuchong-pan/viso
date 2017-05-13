@@ -73,7 +73,7 @@ var vm = new Vue({
                 "client_secret": "482c96905f8b20ec4eea038a7b9208483f347793",
                 "async": 0,
                 "source": editor.getValue(),
-                "lang": getLang(editor.getSession().getMode()),
+                "lang": getLang(editor.getSession().getMode().$id),
                 'time_limit': 5,
                 'memory_limit': 262144
             }).then(function(response) {
