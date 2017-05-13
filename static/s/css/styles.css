@@ -46,6 +46,13 @@ a:link {
   right: 0;
 }
 
+#chat {
+  position: absolute;
+  width: 207px;
+  top: 202.5px;
+  right: 0;
+}
+
 #controller {
     z-index: 100000 !important;
 }

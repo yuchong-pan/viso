@@ -7,6 +7,7 @@
     <link href="https://leancloud.github.io/docs/styles/font.css" rel="stylesheet">
     <link rel="stylesheet" href="/s/css/styles.css"/>
     <link rel="stylesheet" href="/s/lib/alertify/css/alertify.css">
+    <link rel="stylesheet" href="/s/css/chat-style.css">
     <style type="text/css" media="screen">
         #editor {
             position: absolute;
@@ -86,6 +87,19 @@
 }</div>
         <video id="remote_video" autoplay></video>
         <video style="display: none;" id="local_video" autoplay muted></video>
+        <div id="chat">
+            <div class="item">
+                <input autofocus id="input-name" type="text">
+                <div id="open-btn" class="btn">🔗</div>
+            </div>
+            <div class="item">
+                <div id="print-wall" class="print-wall"></div>
+            </div>
+            <div class="item">
+                <input id="input-send" class="input-send" type="text">
+                <div id="send-btn" class="btn">发送</div>
+            </div>
+        </div>
     </div>
     <script src="/s/lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
     <script>
@@ -101,6 +115,7 @@
     <script src="/s/lib/webrtc.min.js"></script>
     <script src="/s/lib/alertify/js/alertify.js"></script>
     <script src="/s/lib/vue/vue-resource.min.js"></script>
+    <script src="/s/lib/typed-messages.min.js"></script>
     <script src="/s/js/interviewer-controller.js"></script>
 </body>
 </html>
