@@ -11,7 +11,7 @@
 <body id="app" v-cloak>
     <form onsubmit="return false;">
         <p id="logo" v-if="!client || state === 'ready' || state === 'calling'">
-            <span class="title">Please wait for automatic redirect...</span><br/>
+            <span class="title">自动跳转中，请稍等...</span><br/>
         </p>
         <template v-if="supported">
             <div id="login" v-if="!client">
