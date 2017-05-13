@@ -5,7 +5,7 @@
   <title>Viso Video Chat Service</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://leancloud.github.io/docs/styles/font.css" rel="stylesheet">
-  <link rel="stylesheet" href="index.css"/>
+  <link rel="stylesheet" href="/s/css/styles.css"/>
 </head>
 <body id="app" v-cloak>
   <form onsubmit="return false;">
@@ -71,10 +71,10 @@
     <video id="remote_video" autoplay></video>
     <video id="local_video" autoplay muted></video>
   </div>
-  <script src="vue.min.js"></script>
-  <script src="adapter-latest.js"></script>
-  <script src="realtime.browser.min.js"></script>
-  <script src="webrtc.min.js"></script>
-  <script src="index.js"></script>
+  <script src="https://cdn.jsdelivr.net/vue/1.0.24/vue.min.js"></script>
+  <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+  <script src="/s/lib/realtime.browser.min.js"></script>
+  <script src="/s/lib/webrtc.min.js"></script>
+  <script src="/s/js/controller.js"></script>
 </body>
 </html>
