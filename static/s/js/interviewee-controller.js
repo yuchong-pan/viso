@@ -1,6 +1,7 @@
 'use strict';
 
 var APP_ID = 'z5YOfzdyAyjMIrJzsKfCp4Ta-gzGzoHsz';
+var APP_KEY = 'KvNAa2fpyBMXHyyl83eUqlmM';
 
 var realtime = new AV.Realtime({
     appId: APP_ID,
@@ -77,10 +78,10 @@ var vm = new Vue({
         logout: function logout() {
             var _this = this;
             this.hangup();
-                return this.client.close().then(function() {
-                    _this._statue = 0;
-                    _this.client = null;
-                });
+            return this.client.close().then(function() {
+                _this._statue = 0;
+                _this.client = null;
+            });
         },
 
         // get local audio and video tracks
