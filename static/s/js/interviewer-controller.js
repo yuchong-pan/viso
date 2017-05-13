@@ -97,25 +97,25 @@ function main() {
     firstFlag = false;
     client = c;
     client.on('disconnect', function() {
-      showLog('[disconnect] 服务器连接已断开');
+      showLog('服务器连接已断开');
     });
     client.on('offline', function() {
-      showLog('[offline] 离线（网络连接已断开）');
+      showLog('离线（网络连接已断开）');
     });
     client.on('online', function() {
-      showLog('[online] 已恢复在线');
+      showLog('已恢复在线');
     });
     client.on('schedule', function(attempt, time) {
-      showLog('[schedule] ' + time / 1000 + 's 后进行第 ' + (attempt + 1) + ' 次重连');
+      showLog(time / 1000 + 's 后进行第 ' + (attempt + 1) + ' 次重连');
     });
     client.on('retry', function(attempt) {
-      showLog('[retry] 正在进行第 ' + (attempt + 1) + ' 次重连');
+      showLog('正在进行第 ' + (attempt + 1) + ' 次重连');
     });
     client.on('reconnect', function() {
-      showLog('[reconnect] 重连成功');
+      showLog('重连成功');
     });
     client.on('reconnecterror', function() {
-      showLog('[reconnecterror] 重连失败');
+      showLog('重连失败');
     });
     // 获取对话
     return c.getConversation(roomId);
@@ -234,10 +234,10 @@ function showMsg(message, isBefore) {
   }
   if (message instanceof AV.TextMessage) {
     if (String(text).replace(/^\s+/, '').replace(/\s+$/, '')) {
-      showLog('（' + formatTime(message.timestamp) + '）  ' + encodeHTML(from) + '： ', encodeHTML(message.text), isBefore);
+      showLog(/*'（' + formatTime(message.timestamp) + '）  ' + */encodeHTML(from) + '： ', encodeHTML(message.text), isBefore);
     }
   } else if (message instanceof AV.FileMessage) {
-    showLog('（' + formatTime(message.timestamp) + '）  ' + encodeHTML(from) + '： ', createLink(message.getFile().url()), isBefore);
+    showLog(/*'（' + formatTime(message.timestamp) + '）  ' + */encodeHTML(from) + '： ', createLink(message.getFile().url()), isBefore);
   }
 }
 
