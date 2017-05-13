@@ -8,9 +8,8 @@ socketio = SocketIO(app)
 @app.route("/api/leap/alert")
 def received_alert():
     namespace = "/" + request.args.get("id", "")
-    print "received alert from: " + namespace
     socketio.emit("alert", "!", namespace=namespace)
-    return ""
+    return "received alert from: " + namespace
 
 if __name__ == "__main__":
     socketio.run(app, host="0.0.0.0")
