@@ -68,7 +68,7 @@ var printWall = document.getElementById('print-wall');
 // 最早一条消息的时间戳
 var msgTime;
 
-bindEvent(document.body, 'keydown', function(e) {
+bindEvent(document.getElementById('chat'), 'keydown', function(e) {
   if (e.keyCode === 13) {
     if (firstFlag) {
       main();
