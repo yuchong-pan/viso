@@ -1,9 +1,4 @@
 var socket = io.connect("http://viso.hackinit.io/interviewee");
-socket.on("modify", function(data) {
-    if (editor.getValue() != data) {
-        editor.setValue(data, 0);
-    }
-});
 editor.on("change", function() {
     if (editor.getValue() != "") {
         Vue.http.post("http://viso.hackinit.io/api/ide/modify", {

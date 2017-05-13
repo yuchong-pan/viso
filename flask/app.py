@@ -15,11 +15,7 @@ def received_alert():
 @app.route("/api/ide/modify", methods=["POST"])
 def code_modified():
     body = json.loads(request.data)
-    author = body["author"]
-    if author == "LP01632947305":
-        namespace = "/interviewee"
-    else:
-        namespace = "/LP01632947305"
+    namespace = "/LP01632947305"
     socketio.emit("modify", body["code"], namespace=namespace)
     return "code changed from: " + namespace
 
