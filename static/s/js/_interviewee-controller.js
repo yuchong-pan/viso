@@ -25,11 +25,6 @@ if (idParam && idParam.length) {
     autoId = idParam[1];
 }
 
-function setLang(lang) {
-    editor.getSession().setMode("ace/mode/" + lang);
-    Vue.http.get("http://viso.hackinit.io/api/ide/lang?l=" + lang);
-}
-
 var vm = new Vue({
     el: '#app',
     data: {
@@ -58,25 +53,11 @@ var vm = new Vue({
 
 
     methods: {
-        init: function(clientId) {
-            var socket = io.connect("http://viso.hackinit.io/" + clientId);
-
-            editor.on("change", function() {
-                window.setTimeout(function() {
-                    Vue.http.post("http://viso.hackinit.io/api/ide/modify", {
-                        "code": editor.getValue(),
-                        "pos": editor.getCursorPosition(),
-                        "select": editor.getSelection().rangeList.ranges
-                    });
-                }, 50);
-            });
-        },
         login: function login() {
             var _this = this;
             _this.state = 'loggingin';
             return realtime.createWebRTCClient('interviewee').then(function (client) {
                 _this.client = client;
-                _this.init(client.id);
                 client.on('call', function (call) {
                     _this.incomingCall = call;
                     call.on('cancel', function () {

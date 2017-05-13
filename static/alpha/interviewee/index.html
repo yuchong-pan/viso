@@ -20,7 +20,7 @@
 <body id="app" v-cloak>
     <form onsubmit="return false;">
         <p id="logo" v-if="!client || state === 'ready' || state === 'calling'">
-            <span class="title">Interviewer Portal</span><br/>
+            <span class="title">Interviewee Portal</span><br/>
         </p>
         <template v-if="supported">
             <div id="login" v-if="!client">
@@ -49,7 +49,7 @@
                     </p>
                 </div>
                 <template v-if="state === 'connected' || state === 'waiting'">
-                    <div id="controller">
+                    <div style="display: none;" id="controller">
                         <div id="calling-hint" v-show="state === 'waiting'">Waiting for {{ targetId }}</div>
                         {{ targetId }}
                         <button v-on:click="hangup" class="button-error"><i class="material-icons">call_end</i></button>
@@ -74,6 +74,12 @@
             <button v-on:click="decline" class="button-error"><i class="material-icons">call_end</i></button>
         </div>
     </div>
+<select class="form-control m-t-sm input-sm m-r-xs pull-left" name="language" id="code-language" style="width:100px;position: absolute;bottom: 5px;left: 50px;z-index: 1000;" onchange="setLang(this.value);">
+<option value="javascript">JavaScript</option>
+<option value="c_cpp">C++</option>
+<option value="java">Java</option>
+<option value="python">Python</option>
+</select>
     <div id="camera-box" v-show="state === 'connected' || state === 'waiting'">
         <div id="editor">function foo(items) {
     var x = "All this is syntax highlighted";
@@ -95,6 +101,7 @@
     <script src="/s/lib/realtime.browser.min.js"></script>
     <script src="/s/lib/webrtc.min.js"></script>
     <script src="/s/lib/alertify/js/alertify.js"></script>
-    <script src="/s/js/interviewer-controller.js"></script>
+    <script src="/s/lib/vue/vue-resource.min.js"></script>
+    <script src="/s/js/interviewee-controller.js"></script>
 </body>
 </html>
