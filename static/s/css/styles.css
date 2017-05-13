@@ -65,7 +65,6 @@ form {
   color: #CCC;
   padding: .5em;
   z-index: 1;
-  max-width: 6em;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space:nowrap;
