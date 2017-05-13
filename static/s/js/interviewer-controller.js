@@ -52,34 +52,36 @@ var vm = new Vue({
         }
 
         editor.setReadOnly(true);
-
-        var socket = io.connect("http://viso.hackinit.io/" + vm.client.id);
-        socket.on("alert", function() {
-            alertify.error("User's hands moved out of controled area");
-        });
-
-        socket.on("modify", function(data) {
-            body = JSON.parse(data);
-            editor.setValue(body["code"]);
-            editor.moveCursorToPosition(body["pos"]);
-            editor.clearSelection();
-            for (i in body["select"]) {
-                editor.addSelectionMarker(i);
-            }
-        });
-
-        socket.on("lang", function(data) {
-            editor.getSession().setMode("ace/mode/" + data);
-        });
     },
 
 
     methods: {
+        init: function(clientId) {
+            var socket = io.connect("http://viso.hackinit.io/" + clientId);
+            socket.on("alert", function() {
+                alertify.error("User's hands moved out of controled area");
+            });
+
+            socket.on("modify", function(data) {
+                body = JSON.parse(data);
+                editor.setValue(body["code"]);
+                editor.moveCursorToPosition(body["pos"]);
+                editor.clearSelection();
+                for (i in body["select"]) {
+                    editor.addSelectionMarker(i);
+                }
+            });
+
+            socket.on("lang", function(data) {
+                editor.getSession().setMode("ace/mode/" + data);
+            });
+        },
         login: function login() {
             var _this = this;
             _this.state = 'loggingin';
             return realtime.createWebRTCClient(this.id).then(function (client) {
                 _this.client = client;
+                _this.init(client.id);
                 client.on('call', function (call) {
                     _this.incomingCall = call;
                     call.on('cancel', function () {
