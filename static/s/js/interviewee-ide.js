@@ -5,8 +5,10 @@ socket.on("modify", function(data) {
     }
 });
 editor.on("change", function() {
-    Vue.http.post("http://viso.hackinit.io/api/ide/modify", {
-        "code": editor.getValue(),
-        "author": "interviewee"
-    });
+    if (editor.getValue() != "") {
+        Vue.http.post("http://viso.hackinit.io/api/ide/modify", {
+            "code": editor.getValue(),
+            "author": "interviewee"
+        });
+    }
 });
