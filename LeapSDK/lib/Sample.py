@@ -8,18 +8,21 @@
 
 import Leap, sys, thread, time
 from Leap import CircleGesture, KeyTapGesture, ScreenTapGesture, SwipeGesture
-
+import requests
 
 class SampleListener(Leap.Listener):
     finger_names = ['Thumb', 'Index', 'Middle', 'Ring', 'Pinky']
     bone_names = ['Metacarpal', 'Proximal', 'Intermediate', 'Distal']
     state_names = ['STATE_INVALID', 'STATE_START', 'STATE_UPDATE', 'STATE_END']
-
+    global timeoutCount
+    
     def on_init(self, controller):
         print "Initialized"
 
     def on_connect(self, controller):
         print "Connected"
+        global timeoutCount
+        timeoutCount = 0
 
         # Enable gestures
         controller.enable_gesture(Leap.Gesture.TYPE_CIRCLE);
@@ -38,9 +41,18 @@ class SampleListener(Leap.Listener):
         # Get the most recent frame and report some basic information
         frame = controller.frame()
         device = controller.devices[0]
-
+        sn = device.serial_number
+        global timeoutCount
+        print timeoutCount
+        
+        if not len(frame.hands) == 2:
+            timeoutCount = (timeoutCount + 1) % 90
+            #print timeoutCount
+            if timeoutCount == 0:
+                r = requests.get('http://viso.hackinit.io/api/leap/alert', params = sn)
+                print "RIGHT SURE"
         print "Serial Number: %s, Frame id: %d, timestamp: %d, hands: %d, fingers: %d, tools: %d, gestures: %d" % (
-              device.serial_number, frame.id, frame.timestamp, len(frame.hands), len(frame.fingers), len(frame.tools), len(frame.gestures()))
+              sn, frame.id, frame.timestamp, len(frame.hands), len(frame.fingers), len(frame.tools), len(frame.gestures()))
 
 ##        # Get hands
 ##        for hand in frame.hands:
