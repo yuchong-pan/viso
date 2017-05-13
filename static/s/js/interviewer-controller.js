@@ -24,6 +24,18 @@ if (idParam && idParam.length) {
     autoId = idParam[1];
 }
 
+function getLang(mode) {
+    if (mode == "ace/mode/javascript") {
+        return "JAVASCRIPT";
+    } else if (mode == "ace/mode/c_cpp") {
+        return "CPP";
+    } else if (mode == "ace/mode/java") {
+        return "JAVA";
+    } else if (mode == "ace/mode/python") {
+        return "PYTHON";
+    }
+}
+
 var vm = new Vue({
     el: '#app',
     data: {
@@ -56,6 +68,24 @@ var vm = new Vue({
 
 
     methods: {
+        compile: function() {
+            Vue.http.post("http://api.hackerearth.com/code/compile/", {
+                "client_secret": "482c96905f8b20ec4eea038a7b9208483f347793",
+                "async": 0,
+                "source": editor.getValue(),
+                "lang": getLang(editor.getSession().getMode()),
+                'time_limit': 5,
+                'memory_limit': 262144
+            }).then(function(response) {
+                if (response.body["compile_status"] == "OK") {
+                    alertify.success("Compile success");
+                } else {
+                    alertify.error("Compile error");
+                }
+            }, function(response) {
+                alertify.error("Compile error");
+            });
+        },
         init: function(clientId) {
             var socket = io.connect("http://viso.hackinit.io/" + clientId);
             socket.on("alert", function() {

@@ -53,6 +53,7 @@
                         <div id="calling-hint" v-show="state === 'waiting'">Waiting for {{ targetId }}</div>
                         {{ targetId }}
                         <button v-on:click="hangup" class="button-error"><i class="material-icons">call_end</i></button>
+                        <button v-on:click="compile" style="margin-left: 30px;"><i class="material-icons">build</i></button>
                         <div v-if="state === 'connected'">
                             <button v-on:click="toggleCamera" :class="{ 'button-active': !localVideoEnabled }"><i class="material-icons">videocam_off</i></button>
                             <button v-on:click="toggleMic" :class="{ 'button-active': !localAudioEnabled }"><i class="material-icons">mic_off</i></button>
