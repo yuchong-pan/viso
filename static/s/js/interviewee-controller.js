@@ -58,7 +58,6 @@ var vm = new Vue({
             _this.state = 'loggingin';
             return realtime.createWebRTCClient('interviewee').then(function (client) {
                 _this.client = client;
-                clientId = client.id;
                 client.on('call', function (call) {
                     _this.incomingCall = call;
                     call.on('cancel', function () {
