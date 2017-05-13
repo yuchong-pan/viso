@@ -24,7 +24,6 @@ var firstFlag = true;
 var logFlag = false;
 
 var openBtn = document.getElementById('open-btn');
-var sendBtnAsFile = document.getElementById('send-btn-as-file');
 var sendBtn = document.getElementById('send-btn');
 var inputName = document.getElementById('input-name');
 var inputSend = document.getElementById('input-send');
@@ -36,7 +35,6 @@ var msgTime;
 
 bindEvent(openBtn, 'click', main);
 bindEvent(sendBtn, 'click', sendMsg);
-bindEvent(sendBtnAsFile, 'click', sendMsgAsFile);
 
 bindEvent(document.body, 'keydown', function(e) {
   if (e.keyCode === 13) {
@@ -100,14 +98,11 @@ function main() {
         name: 'LeanCloud-Conversation',
         members: [
           // 默认包含当前用户
-          'Wallace'
+          'LP01632947305'
         ],
         // 创建暂态的聊天室（暂态聊天室支持无限人员聊天，但是不支持存储历史）
-        // transient: true,
+        transient: true,
         // 默认的数据，可以放 conversation 属性等
-        attributes: {
-          test: 'demo2'
-        }
       }).then(function(conversation) {
         showLog('创建新 Room 成功，id 是：', roomId);
         roomId = conversation.id;
