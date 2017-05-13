@@ -8,7 +8,7 @@ AV.initialize(appId, appKey);
 var roomId = '591745aea46814d9c7a310b8';
 
 // 每个客户端自定义的 id
-var clientId = 'interviewee';
+var clientId = 'LP01632947305';
 
 var realtime;
 var client;
