@@ -61,18 +61,12 @@ var firstFlag = true;
 // 用来标记历史消息获取状态
 var logFlag = false;
 
-var openBtn = document.getElementById('open-btn');
-var sendBtn = document.getElementById('send-btn');
-var inputName = document.getElementById('input-name');
 var inputSend = document.getElementById('input-send');
 var printWall = document.getElementById('print-wall');
 
 // 拉取历史相关
 // 最早一条消息的时间戳
 var msgTime;
-
-bindEvent(openBtn, 'click', main);
-bindEvent(sendBtn, 'click', sendMsg);
 
 bindEvent(document.body, 'keydown', function(e) {
   if (e.keyCode === 13) {
