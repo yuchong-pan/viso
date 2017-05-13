@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from flask_socketio import SocketIO
 
 app = Flask(__name__)
@@ -8,8 +8,8 @@ socketio = SocketIO(app)
 @app.route("/api/leap/alert")
 def received_alert():
     namespace = "/" + request.args.get("id", "")
-    console.log("received alert from: " + namespace)
+    print "received alert from: " + namespace
     emit("alert", "!", namespace=namespace)
 
 if __name__ == "__main__":
-    socketio.run(app)
+    socketio.run(app, host="0.0.0.0")
