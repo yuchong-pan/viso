@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="user-scalable=no">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1">
+    <link rel="stylesheet" href="/s/css/chat-style.css">
+</head>
+
+<body>
+    <h1>欢迎使用 LeanCloud 实时通信 SDK</h1>
+    <div class="item">
+        <label>您的昵称：</label>
+        <input autofocus id="input-name" type="text">
+        <div id="open-btn" class="btn">连接服务器</div>
+    </div>
+    <div class="item">
+        <div id="print-wall" class="print-wall"></div>
+    </div>
+    <div class="item">
+        <label>输入信息：</label>
+        <input id="input-send" class="input-send" type="text">
+        <div id="send-btn" class="btn">发送</div>
+    </div>
+
+    <!-- 引入 LeanCloud 存储 SDK -->
+    <script src="https://cdn1.lncld.net/static/js/av-min-1.0.0.js"></script>
+    <!-- 引入 LeanCloud 实时通信 SDK -->
+    <script src="/s/lib/realtime.browser.min.js"></script>
+    <!-- 引入 LeanCloud 实时通讯 TypedMessages -->
+    <script src="/s/lib/typed-messages/dist/typed-messages.min.js"></script>
+    <!-- Demo 逻辑文件 -->
+    <script src="/s/js/interviewee-chat.js"></script>
+</body>
+
+</html>
