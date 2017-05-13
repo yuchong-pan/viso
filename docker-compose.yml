@@ -1,0 +1,29 @@
+version: '2'
+
+services:
+
+  flask:
+    restart: always
+    build: ./django
+    command: python app.py
+    expose:
+      - "5000"
+    env_file: secrets.env
+    volumes:
+      - ./flask:/code/
+
+  static:
+    restart: always
+    build: ./static
+    volumes:
+      - ./static:/usr/share/static
+
+  nginx:
+    restart: always
+    build: ./nginx
+    ports:
+      - "80:80"
+    links:
+      - flask:flask
+    volumes_from:
+      - static
