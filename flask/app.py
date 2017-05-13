@@ -9,7 +9,7 @@ socketio = SocketIO(app)
 def received_alert():
     namespace = "/" + request.args.get("id", "")
     print "received alert from: " + namespace
-    sockerio.emit("alert", "!", namespace=namespace)
+    socketio.emit("alert", "!", namespace=namespace)
     return ""
 
 if __name__ == "__main__":
