@@ -62,7 +62,7 @@
     </div>
     <div id="camera-box" v-show="state === 'connected' || state === 'waiting'">
         <video id="remote_video" autoplay></video>
-    <!--    <video id="local_video" autoplay muted></video> -->
+        <video id="local_video" style="display: none;" autoplay muted></video>
     </div>
     <script src="https://cdn.jsdelivr.net/vue/1.0.24/vue.min.js"></script>
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
