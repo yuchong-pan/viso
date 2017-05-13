@@ -7,7 +7,7 @@ AV.init(APP_ID, APP_KEY);
 var roomId = '59171939a46814d9c7a30fde';
 
 // 每个客户端自定义的 id
-var clientId = vm.client.id;
+var clientId = 'interviewee';
 
 var realtime;
 var client;
@@ -49,18 +49,15 @@ bindEvent(document.body, 'keydown', function(e) {
 
 function main() {
     showLog('正在连接，请等待');
-    var val = inputName.value;
-    if (val) {
-        clientId = val;
-    }
+
     if (!firstFlag) {
         client.close();
     }
 
     // 创建实时通信实例
     realtime = new AV.Realtime({
-        appId: appId,
-        appKey: appKey,
+        appId: APP_ID,
+        appKey: APP_KEY,
         plugins: AV.TypedMessagesPlugin,
     });
     // 创建聊天客户端
