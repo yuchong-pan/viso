@@ -32,19 +32,19 @@ a:link {
 }
 
 #remote_video {
-  position: fixed;
-  height: 100%;
-  width: 100%;
+  position: absolute;
+  height: 300px;
+  width: 300px;
   background: #111;
   top: 0;
-  left: 0;
+  right: 0;
 }
 
 #local_video {
-  height: 20%;
-  max-width: 100%;
-  position: fixed;
-  top: 0;
+  position: absolute;
+  height: 300px;
+  max-width: 300px;
+  top: 300px;
   right: 0;
 }
 form {

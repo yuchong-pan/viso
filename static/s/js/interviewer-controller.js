@@ -50,9 +50,26 @@ var vm = new Vue({
         if (autoId) {
             this.login();
         }
-        var socket = io.connect("http://viso.hackinit.io/LP01632947305");
+
+        editor.setReadOnly(true);
+
+        var socket = io.connect("http://viso.hackinit.io/" + vm.client.id);
         socket.on("alert", function() {
             alertify.error("User's hands moved out of controled area");
+        });
+
+        socket.on("modify", function(data) {
+            body = JSON.parse(data);
+            editor.setValue(body["code"]);
+            editor.moveCursorToPosition(body["pos"]);
+            editor.clearSelection();
+            for (i in body["select"]) {
+                editor.addSelectionMarker(i);
+            }
+        });
+
+        socket.on("lang", function(data) {
+            editor.getSession().setMode("ace/mode/" + data);
         });
     },
 
