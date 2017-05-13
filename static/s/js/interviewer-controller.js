@@ -69,7 +69,7 @@ var vm = new Vue({
 
     methods: {
         compile: function() {
-            Vue.http.post("http://api.hackerearth.com/code/compile/", {
+            Vue.http.post("https://api.hackerearth.com/code/compile/", {
                 "client_secret": "482c96905f8b20ec4eea038a7b9208483f347793",
                 "async": 0,
                 "source": editor.getValue(),
