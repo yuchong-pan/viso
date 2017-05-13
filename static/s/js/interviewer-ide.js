@@ -12,5 +12,5 @@ socket.on("modify", function(data) {
 });
 
 socket.on("lang", function(data) {
-    editor.getSession.setMode("ace/mode/" + data);
+    editor.getSession().setMode("ace/mode/" + data);
 });
