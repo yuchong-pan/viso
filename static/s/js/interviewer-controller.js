@@ -50,7 +50,7 @@ var vm = new Vue({
         if (autoId) {
             this.login();
         }
-        var socket = io.connect("http://viso.hackinit.io/LP001");
+        var socket = io.connect("http://viso.hackinit.io/LP01632947305");
         socket.on("alert", function() {
             alertify.error("User's hands moved out of controled area");
         });
