@@ -2,5 +2,5 @@ secrets.env
 *.pyc
 *.swp
 .DS_Store
-docs/
-samples/
+LeapSDK/docs/
+LeapSDK/samples/
