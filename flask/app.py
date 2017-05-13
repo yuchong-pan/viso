@@ -16,7 +16,7 @@ def received_alert():
 def code_modified():
     body = json.loads(request.data)
     namespace = "/LP01632947305"
-    socketio.emit("modify", body["code"], namespace=namespace)
+    socketio.emit("modify", json.dumps({"code": body["code"], "pos": body["pos"], "select": body["select"]}), namespace=namespace)
     return "code changed from: " + namespace
 
 if __name__ == "__main__":

@@ -3,7 +3,8 @@ editor.on("change", function() {
     if (editor.getValue() != "") {
         Vue.http.post("http://viso.hackinit.io/api/ide/modify", {
             "code": editor.getValue(),
-            "author": "interviewee"
+            "pos": editor.getCursorPosition(),
+            "select": editor.getSelection().rangeList.ranges
         });
     }
 });
