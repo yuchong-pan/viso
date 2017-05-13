@@ -6,6 +6,7 @@ AV.initialize(appId, appKey);
 
 // 请换成你自己的一个房间的 conversation id（这是服务器端生成的）
 var roomId = '591745aea46814d9c7a310b8';
+//
 
 // 每个客户端自定义的 id
 var clientId = 'interviewee';
