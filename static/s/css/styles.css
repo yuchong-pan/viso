@@ -197,3 +197,7 @@ form {
   font-size: 60%;
   vertical-align: top;
 }
+
+.alertify-logs {
+    z-index: 1000000;
+}
