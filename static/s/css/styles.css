@@ -63,16 +63,18 @@ a:link {
 }
 
 #print-wall {
-    height: 350px;
+    height: 330px;
     overflow: auto;
     margin: 20px auto;
 }
 
 #input-send {
-    text-align: center;
+    text-align: left;
     border: 1px solid grey;
     width: 240px;
     padding: 0;
+    font-size: 15px;
+    padding: 10px;
 }
 
 #controller {
