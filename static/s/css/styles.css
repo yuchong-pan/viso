@@ -76,10 +76,6 @@ a:link {
     top: 0;
 }
 
-.print-wall-ivee {
-    height: calc(100% - 30px);
-}
-
 #input-send {
     text-align: left;
     border: 1px solid grey;
