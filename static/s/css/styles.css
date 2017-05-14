@@ -48,9 +48,31 @@ a:link {
 
 #chat {
   position: absolute;
-  width: 207px;
+  width: 240px;
   top: 202.5px;
   right: 0;
+  margin-left: 15px;
+  margin-right: 15px;
+  text-align: left;
+}
+
+#chat p {
+    font-size: 15px;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+#print-wall {
+    height: 350px;
+    overflow: auto;
+    margin: 20px auto;
+}
+
+#input-send {
+    text-align: center;
+    border: 1px solid grey;
+    width: 240px;
+    padding: 0;
 }
 
 #controller {
