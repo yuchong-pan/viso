@@ -58,6 +58,10 @@ a:link {
   bottom: 80px;
 }
 
+#chat.chat-ivee {
+    bottom: 20px;
+}
+
 #chat p {
     font-size: 15px;
     margin-top: 0;
