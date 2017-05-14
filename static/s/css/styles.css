@@ -199,5 +199,5 @@ form {
 }
 
 .alertify-logs {
-    z-index: 1000000;
+    z-index: 1000000 !important;
 }
