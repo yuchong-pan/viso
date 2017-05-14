@@ -63,10 +63,14 @@ a:link {
     margin-bottom: 10px;
 }
 
-#print-wall {
+.print-wall {
     height: 330px;
     overflow: auto;
     margin: 20px auto;
+}
+
+.print-wall-ivee {
+    height: 400px;
 }
 
 #input-send {
