@@ -344,6 +344,7 @@ var vm = new Vue({
 
     created: function created() {
         this.login();
+        main();
     },
 
 
