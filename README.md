@@ -1,4 +1,4 @@
-# viso
+# Viso
 Viso project by hack.init() at HackNanjing
 
 ## Features
