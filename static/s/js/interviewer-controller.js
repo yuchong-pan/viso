@@ -190,7 +190,7 @@ function sendMsg() {
   room.send(new AV.TextMessage(val)).then(function(message) {
     // 发送成功之后的回调
     inputSend.value = '';
-    showLog('（' + formatTime(message.timestamp) + '）  自己： ', encodeHTML(message.text));
+    showLog(/*'（' + formatTime(message.timestamp) + '）  */'自己： ', encodeHTML(message.text));
     printWall.scrollTop = printWall.scrollHeight;
   });
 
@@ -212,7 +212,7 @@ function sendMsgAsFile() {
   }).then(function(message) {
     // 发送成功之后的回调
     inputSend.value = '';
-    showLog('（' + formatTime(message.timestamp) + '）  自己： ', createLink(message.getFile().url()));
+    showLog(/*'（' + formatTime(message.timestamp) + '）  */'自己： ', createLink(message.getFile().url()));
     printWall.scrollTop = printWall.scrollHeight;
   }).catch(console.warn);
 
