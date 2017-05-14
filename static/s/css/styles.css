@@ -55,6 +55,7 @@ a:link {
   margin-left: 15px;
   margin-right: 15px;
   text-align: left;
+  bottom: 80px;
 }
 
 #chat p {
@@ -64,22 +65,25 @@ a:link {
 }
 
 .print-wall {
-    height: 330px;
     overflow: auto;
     margin: 20px auto;
+    position: absolute;
+    height: calc(100% - 80px);
+    top: 0;
 }
 
 .print-wall-ivee {
-    height: 400px;
+    height: calc(100% - 30px);
 }
 
 #input-send {
     text-align: left;
     border: 1px solid grey;
     width: 220px;
-    padding: 0;
     font-size: 15px;
     padding: 10px;
+    position: absolute;
+    bottom: 0;
 }
 
 #controller {
